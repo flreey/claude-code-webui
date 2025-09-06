@@ -5,6 +5,7 @@ import { useEnterBehavior } from "../../hooks/useSettings";
 import { PermissionInputPanel } from "./PermissionInputPanel";
 import { PlanPermissionInputPanel } from "./PlanPermissionInputPanel";
 import type { PermissionMode } from "../../types";
+import { getAvailablePermissionModes } from "../../utils/bypassMode";
 
 interface PermissionData {
   patterns: string[];
@@ -157,6 +158,8 @@ export function ChatInput({
         return "⏸ plan mode";
       case "acceptEdits":
         return "⏵⏵ accept edits";
+      case "bypassPermissions":
+        return "🚀 bypass mode";
     }
   };
 
@@ -169,12 +172,14 @@ export function ChatInput({
         return "plan mode";
       case "acceptEdits":
         return "accept edits";
+      case "bypassPermissions":
+        return "bypass mode";
     }
   };
 
   // Get next permission mode for cycling
   const getNextPermissionMode = (current: PermissionMode): PermissionMode => {
-    const modes: PermissionMode[] = ["default", "plan", "acceptEdits"];
+    const modes = getAvailablePermissionModes() as PermissionMode[];
     const currentIndex = modes.indexOf(current);
     return modes[(currentIndex + 1) % modes.length];
   };
