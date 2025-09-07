@@ -15,7 +15,7 @@ await build({
   bundle: true,
   platform: "node",
   target: "node18",
-  format: "cjs",
+  format: "esm",
   outfile: "dist/cli/node.js",
   external: [
     // Keep node built-ins as external
