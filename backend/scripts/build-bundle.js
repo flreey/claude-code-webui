@@ -21,6 +21,14 @@ await build({
     // Keep node built-ins as external
     "node:*",
   ],
+  banner: {
+    js: `
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const __filename = new URL(import.meta.url).pathname;
+const __dirname = new URL('.', import.meta.url).pathname;
+    `.trim()
+  },
   sourcemap: true,
 });
 
