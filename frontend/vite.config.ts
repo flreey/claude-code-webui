@@ -11,6 +11,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, resolve(__dirname, ".."), "");
   const apiPort = env.PORT || "8080";
+  const frontendPort = parseInt(env.FRONTEND_PORT || "3000", 10);
+  const frontendHost = env.FRONTEND_HOST || "127.0.0.1";
 
   return {
     plugins: [react(), tailwindcss()],
@@ -20,7 +22,8 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      port: 3000,
+      host: frontendHost,
+      port: frontendPort,
       proxy: {
         "/api": {
           target: `http://localhost:${apiPort}`,
