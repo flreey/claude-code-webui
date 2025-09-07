@@ -15,13 +15,11 @@ await build({
   bundle: true,
   platform: "node",
   target: "node18",
-  format: "esm",
+  format: "cjs",
   outfile: "dist/cli/node.js",
   external: [
-    "@anthropic-ai/claude-code",
-    "@hono/node-server",
-    "hono",
-    "commander",
+    // Keep node built-ins as external
+    "node:*",
   ],
   sourcemap: true,
 });

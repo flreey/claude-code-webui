@@ -42,10 +42,22 @@ build: build-frontend copy-dist build-backend
 build-frontend:
 	cd frontend && npm run build
 copy-dist:
-	rm -rf backend/dist
-	cp -r frontend/dist backend/dist
+	rm -rf backend/static
+	cp -r frontend/dist backend/static
 build-backend:
-	cd backend && deno task build
+	cd backend && npm run build
+
+# Build single executable binary  
+build-executable: build
+	@echo "Building executable binary..."
+	@mkdir -p dist
+	@cp -r backend/dist/* dist/
+	@mv dist/cli/node.js dist/claude-code-webui
+	@rmdir dist/cli 2>/dev/null || true
+	@chmod +x dist/claude-code-webui
+	@echo "✅ Executable built: dist/claude-code-webui"
+	@echo "✅ Static files included: dist/static/"
+	@echo "Usage: ./dist/claude-code-webui --host 0.0.0.0 --port 3001"
 
 # Development
 dev-frontend:

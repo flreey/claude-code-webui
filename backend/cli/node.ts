@@ -33,6 +33,7 @@ async function main(runtime: NodeRuntime) {
   // Node.js 20.11.0+ compatible with fallback for older versions
   const __dirname =
     import.meta.dirname ?? dirname(fileURLToPath(import.meta.url));
+  // For built package, look for dist/static, for dev mode use ./dist
   const staticPath = join(__dirname, "../static");
 
   // Create application

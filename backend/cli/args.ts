@@ -19,8 +19,8 @@ export function parseCliArgs(): ParsedArgs {
   // Use version from auto-generated version.ts file
   const version = VERSION;
 
-  // Get default port from environment
-  const defaultPort = parseInt(getEnv("PORT") || "8080", 10);
+  // Get default port from environment - use 3001 for integrated build
+  const defaultPort = parseInt(getEnv("PORT") || "3001", 10);
 
   // Configure program
   program
@@ -42,7 +42,7 @@ export function parseCliArgs(): ParsedArgs {
     .option(
       "--host <host>",
       "Host address to bind to (use 0.0.0.0 for all interfaces)",
-      "127.0.0.1",
+      "0.0.0.0",
     )
     .option(
       "--claude-path <path>",
